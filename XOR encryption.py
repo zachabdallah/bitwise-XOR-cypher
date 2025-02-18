@@ -47,7 +47,7 @@ def xor_decrypt(ciphertext, key):
 
 
 message = "hello my name is zach"
-key = "joXe12351(*ZXnasdfj vkz)"  
+key = "joXe12351(*ZXnasdfj vkz)"  # we should think about how to privatize this key or have a way to generate it so that it's not easily guessable or brute-forced
 
 encrypted_text = xor_encrypt(message, key)
 print_ASCII(message, encrypted_text, key)
