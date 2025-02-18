@@ -49,6 +49,15 @@ def xor_decrypt(ciphertext, key):
 message = "hello my name is zach"
 key = "joXe12351(*ZXnasdfj vkz)"  # we should think about how to privatize this key or have a way to generate it so that it's not easily guessable or brute-forced
 
+'''
+Jarrett has a good idea, but we should have multiple keys to guess, 
+all with varying levels of defense. An example would be a repeating 
+key, a long key like we currently have, and a randomly generated key.
+This way, as the attacker, we can show the importance of creating a 
+meaningful defense.
+'''
+                                 
+
 encrypted_text = xor_encrypt(message, key)
 print_ASCII(message, encrypted_text, key)
 decrypted_text = xor_decrypt(encrypted_text, key)
