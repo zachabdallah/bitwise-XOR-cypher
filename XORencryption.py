@@ -1,4 +1,5 @@
 from rkey import generate_key
+from rkey import passphrase_key
 CONTROL_CHAR_NAMES = {#dictionary generated with chatGPT
     0: "NUL", 1: "SOH", 2: "STX", 3: "ETX", 4: "EOT", 5: "ENQ", 6: "ACK", 7: "BEL", 8: "BS", 9: "TAB", 10: "LF", 11: "VT", 12: "FF", 13: "CR", 14: "SO",
     15: "SI", 16: "DLE", 17: "DC1", 18: "DC2", 19: "DC3", 20: "DC4", 21: "NAK", 22: "SYN", 23: "ETB", 24: "CAN", 25: "EM", 26: "SUB", 27: "ESC", 28: "FS", 29: "GS",
@@ -48,7 +49,9 @@ def xor_decrypt(ciphertext, key):
 
 
 message = "hello my name is zach"
-key = generate_key(10)  # we should think about how to privatize this key or have a way to generate it so that it's not easily guessable or brute-forced
+#key = generate_key(10)  # we should think about how to privatize this key or have a way to generate it so that it's not easily guessable or brute-forced
+passphrase = "superstrongpassphrase" #using your own passphrase to generate key (more convenient for users)
+key = passphrase_key(passphrase)
 
 '''
 Jarrett has a good idea, but we should have multiple keys to guess, 
@@ -56,8 +59,7 @@ all with varying levels of defense. An example would be a repeating
 key, a long key like we currently have, and a randomly generated key.
 This way, as the attacker, we can show the importance of creating a 
 meaningful defense.
-'''
-                                 
+'''                               
 
 encrypted_text = xor_encrypt(message, key)
 print_ASCII(message, encrypted_text, key)
