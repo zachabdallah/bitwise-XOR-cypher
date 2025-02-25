@@ -11,6 +11,9 @@ CONTROL_CHAR_NAMES = {#dictionary generated with chatGPT
     105: "i", 106: "j", 107: "k", 108: "l", 109: "m", 110: "n", 111: "o", 112: "p", 113: "q", 114: "r", 115: "s", 116: "t", 117: "u", 118: "v", 119: "w",
     120: "x", 121: "y", 122: "z", 123: "{", 124: "|", 125: "}", 126: "~", 127: "DEL"
 }
+
+##################################################################################################################################################
+
 def print_ASCII(plaintext, encrypted_text, key):
     print(f"{'Char       ASCII         Key    Key ASCII    XOR Result '}")
     print("=" * 60)   
@@ -24,11 +27,14 @@ def print_ASCII(plaintext, encrypted_text, key):
         i += 1
         #alright so this function is just making it easyto see what ASCII values are actually being compared. The key ASCII and the original ASCII values are being compared character by character, and the output of this bitwise XOR operation is a new ASCII value (that might be converted to a character, but might also not be printable), and then all those characters are concatenated to become the decrypted string
 
+##################################################################################################################################################
 
 def printable_xor_output(text): #this is only a print function, we aren't replacing original values
     return "".join(
         CONTROL_CHAR_NAMES.get(ord(c), c) for c in text
     )
+
+##################################################################################################################################################
 
 def xor_encrypt(plaintext, key):
     encrypted = [chr(ord(p) ^ ord(k)) for p, k in zip(plaintext, key * (len(plaintext) // len(key) + 1))]
@@ -43,15 +49,26 @@ def xor_encrypt(plaintext, key):
 
     return "".join(encrypted)#convert the list to a string
 
+##################################################################################################################################################
+
 def xor_decrypt(ciphertext, key):
     decrypted = [chr(ord(c) ^ ord(k)) for c, k in zip(ciphertext, key * (len(ciphertext) // len(key) + 1))]
     return "".join(decrypted)
 
+##################################################################################################################################################
 
 message = "hello my name is zach"
 #key = generate_key(10)  # we should think about how to privatize this key or have a way to generate it so that it's not easily guessable or brute-forced
 passphrase = "superstrongpassphrase" #using your own passphrase to generate key (more convenient for users)
 key = passphrase_key(passphrase)
+print(f"Generated Key: {key}") #This is a mark for me to come back to. See comment below(Jarret)
+
+########################################################################################################################################################################
+
+#Julian made a good point with the key generation for ease of use for the users.
+#But what what happens if one of these user passphrase ends up get comprimised.
+#I think we should add a timer and or a limited attempt passphrase function.
+#This might be redundant on the way the key is generated, but it's a good idea to have a backup plan.
 
 '''
 Jarrett has a good idea, but we should have multiple keys to guess, 
@@ -59,7 +76,10 @@ all with varying levels of defense. An example would be a repeating
 key, a long key like we currently have, and a randomly generated key.
 This way, as the attacker, we can show the importance of creating a 
 meaningful defense.
+
 '''                               
+
+##################################################################################################################################################
 
 encrypted_text = xor_encrypt(message, key)
 print_ASCII(message, encrypted_text, key)
@@ -71,6 +91,7 @@ print(f"Encrypted message: {printable_xor_output(encrypted_text)}")
 print(f"How the message would appear without converting ASCII values: {encrypted_text}")
 print(f"Decrypted: {decrypted_text}")
 
+##################################################################################################################################################
 
 '''example:
 
