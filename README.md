@@ -1,4 +1,5 @@
 # XOR Cipher
+Simple XOR cipher implementation with different key functions.
 
 key functions
 ```
