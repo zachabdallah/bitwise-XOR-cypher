@@ -34,6 +34,7 @@ def printable_xor_output(text): #this is only a print function, we aren't replac
         CONTROL_CHAR_NAMES.get(ord(c), c) for c in text
     )
 
+
 ##################################################################################################################################################
 
 def xor_encrypt(plaintext, key):
